@@ -6,10 +6,11 @@
 * @file		DirectTexture.h
 * @brief	This File is DirectTexture DLL Project.
 * @author	Alopex/Helium
-* @version	v1.11a
+* @version	v1.12a
 * @date		2017-12-10	v1.00a	alopex	Create This File.
 * @date		2018-1-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-1-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-4-12	v1.12a	alopex	Add Macro Call Mode.
 */
 #pragma once
 
@@ -25,6 +26,8 @@
 #else
 #define DIRECTTEXTURE_API	__declspec(dllimport)
 #endif
+
+#define DIRECTTEXTURE_CALLMODE	__stdcall
 
 //Class Definition
 class DIRECTTEXTURE_API DirectTexture
@@ -44,24 +47,24 @@ public:
 	DirectTexture(IDirect3DDevice9* pD3D9Device);							//DirectTexture Constructor Function(构造函数)(D3D9绘制设备)
 
 	//访问
-	IDirect3DDevice9* WINAPI DirectTextureGetDevice(void) const;			//DirectTexture Get D3D9 Device(获取D3D9设备)
-	IDirect3DTexture9* WINAPI DirectTextureGetTexture(void) const;			//DirectTexture Get D3D9 Texture(获取D3D9纹理)
+	IDirect3DDevice9* DIRECTTEXTURE_CALLMODE DirectTextureGetDevice(void) const;			//DirectTexture Get D3D9 Device(获取D3D9设备)
+	IDirect3DTexture9* DIRECTTEXTURE_CALLMODE DirectTextureGetTexture(void) const;			//DirectTexture Get D3D9 Texture(获取D3D9纹理)
 
 	//控制
-	void WINAPI DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device);		//DirectTexture Set D3D9 Device(设置D3D9设备)
-	void WINAPI DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture);	//DirectTexture Set D3D9 Device(设置D3D9纹理)
+	void DIRECTTEXTURE_CALLMODE DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device);		//DirectTexture Set D3D9 Device(设置D3D9设备)
+	void DIRECTTEXTURE_CALLMODE DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture);	//DirectTexture Set D3D9 Device(设置D3D9纹理)
 
 	//重置
-	virtual void WINAPI DirectTextureReset(void);							//DirectTexture Reset(重置D3D9纹理)
+	virtual void DIRECTTEXTURE_CALLMODE DirectTextureReset(void);							//DirectTexture Reset(重置D3D9纹理)
 
 	//加载纹理
-	virtual HRESULT WINAPI DirectTextureLoadTexture(LPWSTR lpszTexture);														//DirectTexture Load Texture(加载纹理)(文件)
-	virtual HRESULT WINAPI DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize);										//DirectTexture Load Texture(加载纹理)(内存)
-	virtual HRESULT WINAPI DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);							//DirectTexture Load Texture Ex(加载纹理)(文件)
-	virtual HRESULT WINAPI DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);			//DirectTexture Load Texture Ex(加载纹理)(内存)
+	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTexture(LPWSTR lpszTexture);														//DirectTexture Load Texture(加载纹理)(文件)
+	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize);										//DirectTexture Load Texture(加载纹理)(内存)
+	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight);							//DirectTexture Load Texture Ex(加载纹理)(文件)
+	virtual HRESULT DIRECTTEXTURE_CALLMODE DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight);			//DirectTexture Load Texture Ex(加载纹理)(内存)
 
 	//渲染纹理
-	virtual void WINAPI DirectTextureSelectTexture(void);					//DirectTexture Select Texture(D3D9设备选中纹理)
+	virtual void DIRECTTEXTURE_CALLMODE DirectTextureSelectTexture(void);					//DirectTexture Select Texture(D3D9设备选中纹理)
 
 };
 

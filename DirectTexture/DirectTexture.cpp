@@ -6,10 +6,11 @@
 * @file		DirectTexture.cpp
 * @brief	This File is DirectTexture DLL Project.
 * @author	Alopex/Helium
-* @version	v1.11a
+* @version	v1.12a
 * @date		2017-12-10	v1.00a	alopex	Create This File.
 * @date		2018-1-10	v1.10a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-1-10	v1.11a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-4-12	v1.12a	alopex	Add Macro Call Mode.
 */
 #include "DirectCommon.h"
 #include "DirectTexture.h"
@@ -70,7 +71,7 @@ DirectTexture::DirectTexture(IDirect3DDevice9* pD3D9Device)
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-IDirect3DDevice9* WINAPI DirectTexture::DirectTextureGetDevice(void) const
+IDirect3DDevice9* DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureGetDevice(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
@@ -83,7 +84,7 @@ IDirect3DDevice9* WINAPI DirectTexture::DirectTextureGetDevice(void) const
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-IDirect3DTexture9* WINAPI DirectTexture::DirectTextureGetTexture(void) const
+IDirect3DTexture9* DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureGetTexture(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Texture;
@@ -96,7 +97,7 @@ IDirect3DTexture9* WINAPI DirectTexture::DirectTextureGetTexture(void) const
 // @Para: IDirect3DDevice9* pD3D9Device	//D3D9绘制设备
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectTexture::DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device)
+void DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device = pD3D9Device;
@@ -109,7 +110,7 @@ void WINAPI DirectTexture::DirectTextureSetDevice(IDirect3DDevice9* pD3D9Device)
 // @Para: IDirect3DTexture9* pD3D9Texture	//D3D9绘制纹理
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectTexture::DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture)
+void DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureSetTexture(IDirect3DTexture9* pD3D9Texture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Texture = m_pD3D9Texture;
@@ -122,7 +123,7 @@ void WINAPI DirectTexture::DirectTextureSetTexture(IDirect3DTexture9* pD3D9Textu
 // @Para: None
 // @Return: None
 //------------------------------------------------------------------
-void WINAPI DirectTexture::DirectTextureReset(void)
+void DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureReset(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	SAFE_RELEASE(m_pD3D9Texture);
@@ -135,7 +136,7 @@ void WINAPI DirectTexture::DirectTextureReset(void)
 // @Para: LPWSTR lpszTexture	//D3D9纹理路径
 // @Return: None
 //------------------------------------------------------------------
-HRESULT WINAPI DirectTexture::DirectTextureLoadTexture(LPWSTR lpszTexture)
+HRESULT DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureLoadTexture(LPWSTR lpszTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -152,7 +153,7 @@ HRESULT WINAPI DirectTexture::DirectTextureLoadTexture(LPWSTR lpszTexture)
 // @Para: UINT nSrcDataSize			//纹理内存数组大小
 // @Return: None
 //-----------------------------------------------------------------------------
-HRESULT WINAPI DirectTexture::DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize)
+HRESULT DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureLoadTexture(LPCVOID lpSrcData, UINT nSrcDataSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -170,7 +171,7 @@ HRESULT WINAPI DirectTexture::DirectTextureLoadTexture(LPCVOID lpSrcData, UINT n
 // @Para: UINT nHeight			//纹理高度(2^n)
 // @Return: None
 //----------------------------------------------------------------------------------------
-HRESULT WINAPI DirectTexture::DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
+HRESULT DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureLoadTextureEx(LPWSTR lpszTexture, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -188,7 +189,7 @@ HRESULT WINAPI DirectTexture::DirectTextureLoadTextureEx(LPWSTR lpszTexture, UIN
 // @Para: UINT nHeight			//纹理高度(2^n)
 // @Return: None
 //----------------------------------------------------------------------------------------------------------
-HRESULT WINAPI DirectTexture::DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
+HRESULT DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT nSrcDataSize, UINT nWidth, UINT nHeight)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -204,7 +205,7 @@ HRESULT WINAPI DirectTexture::DirectTextureLoadTextureEx(LPCVOID lpSrcData, UINT
 // @Para: None
 // @Return: None
 //----------------------------------------------------------------------------------------------------------
-void WINAPI DirectTexture::DirectTextureSelectTexture(void)
+void DIRECTTEXTURE_CALLMODE DirectTexture::DirectTextureSelectTexture(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetTexture(0, m_pD3D9Texture);
