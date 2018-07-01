@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectTexture.cpp" />
+    <ClCompile Include="DirectThreadSafe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectTexture.rc" />
